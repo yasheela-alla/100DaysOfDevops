@@ -72,26 +72,29 @@ const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose, tasks }) => 
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-xl border border-gray-700 w-full max-w-2xl max-h-[80vh] overflow-hidden">
-        <div className="flex items-center justify-between p-6 border-b border-gray-700">
-          <h2 className="text-xl font-semibold text-white">Export Progress</h2>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 w-full max-w-2xl max-h-[80vh] overflow-hidden shadow-2xl">
+        <div className="flex items-center justify-between p-8 border-b border-gray-100 dark:border-gray-700">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Export Progress</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Share your learning journey</p>
+          </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white transition-colors duration-200"
+            className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <X className="h-6 w-6" />
           </button>
         </div>
 
-        <div className="p-6">
-          <div className="flex gap-4 mb-6">
+        <div className="p-8">
+          <div className="flex gap-3 mb-8">
             <button
               onClick={() => setExportType('markdown')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 ${
+              className={`flex items-center gap-3 px-6 py-3 rounded-xl font-medium transition-all duration-200 hover-lift ${
                 exportType === 'markdown'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
               }`}
             >
               <FileText className="h-4 w-4" />
@@ -99,10 +102,10 @@ const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose, tasks }) => 
             </button>
             <button
               onClick={() => setExportType('github')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 ${
+              className={`flex items-center gap-3 px-6 py-3 rounded-xl font-medium transition-all duration-200 hover-lift ${
                 exportType === 'github'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
               }`}
             >
               <Github className="h-4 w-4" />
@@ -112,20 +115,20 @@ const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose, tasks }) => 
 
           {exportType === 'markdown' && (
             <div>
-              <p className="text-gray-300 mb-4">
+              <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 Export your progress and notes as a Markdown file for offline record keeping.
               </p>
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 <button
                   onClick={handleDownload}
-                  className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200"
+                  className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all duration-200 hover-lift shadow-lg"
                 >
                   <Download className="h-4 w-4" />
                   Download Markdown
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200"
+                  className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all duration-200 hover-lift shadow-lg"
                 >
                   {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                   {copied ? 'Copied!' : 'Copy to Clipboard'}
@@ -136,12 +139,12 @@ const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose, tasks }) => 
 
           {exportType === 'github' && (
             <div>
-              <p className="text-gray-300 mb-4">
+              <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 Create a GitHub repository to track your DevOps learning journey. Copy the markdown content and commit it to your repo.
               </p>
-              <div className="bg-gray-900 rounded-lg p-4 mb-4">
-                <h3 className="text-white font-medium mb-2">Suggested Repository Structure:</h3>
-                <pre className="text-sm text-gray-300">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 mb-6 border border-gray-200 dark:border-gray-700">
+                <h3 className="text-gray-800 dark:text-white font-semibold mb-3">Suggested Repository Structure:</h3>
+                <pre className="text-sm text-gray-600 dark:text-gray-300 overflow-x-auto">
 {`devops-learning-journey/
 ├── README.md (your progress)
 ├── notes/
@@ -154,10 +157,10 @@ const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose, tasks }) => 
     └── kubernetes-manifests/`}
                 </pre>
               </div>
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200"
+                  className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all duration-200 hover-lift shadow-lg"
                 >
                   {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                   {copied ? 'Copied!' : 'Copy Markdown'}
@@ -166,7 +169,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose, tasks }) => 
                   href="https://github.com/new"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors duration-200"
+                  className="flex items-center gap-2 px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-xl font-medium transition-all duration-200 hover-lift shadow-lg"
                 >
                   <Github className="h-4 w-4" />
                   Create GitHub Repo

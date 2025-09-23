@@ -54,8 +54,8 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
-      settings.theme === 'dark' ? 'bg-gray-950' : 'bg-gray-50'
+    <div className={`min-h-screen transition-all duration-300 ${
+      settings.theme === 'dark' ? 'dark bg-gray-950' : 'light bg-gray-50'
     }`}>
       <Header 
         settings={settings}
@@ -64,38 +64,42 @@ function App() {
         onExport={() => setShowExportModal(true)}
       />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
         {/* Progress Stats */}
-        <div className="mb-8">
+        <div className="animate-fade-in">
           <ProgressStats progress={progress} />
         </div>
 
         {/* Milestone Badges */}
-        <MilestoneBadges milestones={milestones} />
+        <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <MilestoneBadges milestones={milestones} />
+        </div>
 
         {/* Search and Filter */}
-        <SearchAndFilter
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          filterType={filterType}
-          onFilterChange={setFilterType}
-          showCompleted={showCompleted}
-          onShowCompletedChange={setShowCompleted}
-        />
+        <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <SearchAndFilter
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            filterType={filterType}
+            onFilterChange={setFilterType}
+            showCompleted={showCompleted}
+            onShowCompletedChange={setShowCompleted}
+          />
+        </div>
 
         {/* Learning Plan */}
-        <div className="space-y-6">
-          <div className="text-center mb-8">
+        <div className="space-y-8">
+          <div className="text-center mb-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <h2 className={`text-3xl font-bold mb-2 ${
-              settings.theme === 'dark' ? 'text-white' : 'text-gray-900'
+              settings.theme === 'dark' ? 'text-white' : 'text-gray-800'
             }`}>
-              100-Day DevOps Mastery Plan
+              90-Day DevOps Mastery Journey
             </h2>
-            <p className={`max-w-2xl mx-auto ${
-              settings.theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            <p className={`text-lg max-w-3xl mx-auto leading-relaxed text-balance ${
+              settings.theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               A comprehensive learning journey covering DevOps fundamentals, AWS cloud services, 
-              and advanced tools. Track your progress as you master each skill with hands-on practice.
+              and advanced automation tools. Master each skill through structured video content and hands-on practice.
             </p>
           </div>
 
@@ -114,32 +118,46 @@ function App() {
             if (phaseTasks.length === 0) return null;
 
             return (
-              <PhaseSection
+              <div 
                 key={phase.id}
-                phase={phase}
-                tasks={phaseTasks}
-                onToggleTask={toggleTask}
-                onNotesUpdate={updateTaskNotes}
-              />
+                className="animate-fade-in" 
+                style={{ animationDelay: `${0.4 + phase.id * 0.1}s` }}
+              >
+                <PhaseSection
+                  phase={phase}
+                  tasks={phaseTasks}
+                  onToggleTask={toggleTask}
+                  onNotesUpdate={updateTaskNotes}
+                />
+              </div>
             );
           })}
         </div>
 
         {/* Footer */}
-        <footer className={`mt-16 text-center py-8 border-t ${
-          settings.theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
+        <footer className={`mt-20 text-center py-12 border-t ${
+          settings.theme === 'dark' ? 'border-gray-800' : 'border-gray-100'
         }`}>
-          <div className={`space-y-2 ${
-            settings.theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+          <div className={`space-y-4 ${
+            settings.theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
-            <p>💪 Stay consistent • 🚀 Build projects • 🎯 Land your DevOps role</p>
-            <p className="text-sm">
-              Daily commitment: <span className={`font-medium ${
-                settings.theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>2.5 hours</span> 
-              {' '} • Morning videos: <span className="text-red-500">1 hour</span>
-              {' '} • Evening practice: <span className="text-teal-500">1.5 hours</span>
-            </p>
+            <p className="text-lg font-medium">💪 Stay consistent • 🚀 Build projects • 🎯 Land your DevOps role</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                <span>Daily commitment: <span className={`font-semibold ${
+                  settings.theme === 'dark' ? 'text-white' : 'text-gray-800'
+                }`}>2.5 hours</span></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                <span>Morning videos: <span className="font-semibold text-red-500">1 hour</span></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-teal-500 rounded-full"></span>
+                <span>Evening practice: <span className="font-semibold text-teal-500">1.5 hours</span></span>
+              </div>
+            </div>
           </div>
         </footer>
       </main>

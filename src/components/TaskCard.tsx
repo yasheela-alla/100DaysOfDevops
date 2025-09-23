@@ -21,41 +21,59 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onToggle, onNotesUpdate }) =>
   };
   
   return (
-    <div className={`group relative bg-gray-800 rounded-lg border transition-all duration-200 ${
+    <div className={`group relative card transition-all duration-200 hover-lift ${
       isVideo 
-        ? 'border-red-500/30 hover:border-red-500/50' 
-        : 'border-teal-500/30 hover:border-teal-500/50'
-    } ${task.completed ? 'opacity-75' : ''}`}>
+        ? 'border-l-4 border-l-red-500 hover:border-l-red-600' 
+        : 'border-l-4 border-l-teal-500 hover:border-l-teal-600'
+    } ${task.completed ? 'opacity-80' : ''}`}>
       <div 
-        className="p-4 cursor-pointer hover:bg-gray-750 transition-colors duration-200"
+        className={`p-6 cursor-pointer transition-all duration-200 ${
+          task.completed 
+            ? 'bg-gray-50 dark:bg-gray-800/50' 
+            : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'
+        }`}
         onClick={() => onToggle(task.id)}
       >
         <div className="flex items-start gap-3">
           {/* Checkbox */}
-          <div className={`flex-shrink-0 mt-0.5 transition-colors duration-200 ${task.completed ? 'text-green-400' : 'text-gray-400'}`}>
+          <div className={`flex-shrink-0 mt-1 transition-all duration-200 ${
+            task.completed 
+              ? 'text-green-500 scale-110' 
+              : 'text-gray-400 dark:text-gray-500 hover:text-green-500'
+          }`}>
             <CheckCircle2 
-              className={`h-5 w-5 transition-all duration-200 ${task.completed ? 'fill-current' : 'hover:text-green-400'}`} 
+              className={`h-6 w-6 transition-all duration-200 ${
+                task.completed ? 'fill-current animate-pulse-glow' : 'hover:scale-110'
+              }`} 
             />
           </div>
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-3 mb-2">
               {isVideo ? (
-                <Video className="h-4 w-4 text-red-400 flex-shrink-0" />
+                <div className="flex items-center gap-2 px-3 py-1 bg-red-100 dark:bg-red-900/30 rounded-full">
+                  <Video className="h-3 w-3 text-red-600 dark:text-red-400" />
+                  <span className="text-xs font-medium text-red-600 dark:text-red-400">Video</span>
+                </div>
               ) : (
-                <Code className="h-4 w-4 text-teal-400 flex-shrink-0" />
+                <div className="flex items-center gap-2 px-3 py-1 bg-teal-100 dark:bg-teal-900/30 rounded-full">
+                  <Code className="h-3 w-3 text-teal-600 dark:text-teal-400" />
+                  <span className="text-xs font-medium text-teal-600 dark:text-teal-400">Practice</span>
+                </div>
               )}
-              <span className={`text-xs font-medium ${isVideo ? 'text-red-400' : 'text-teal-400'}`}>
-                Day {task.day} • {isVideo ? 'Video' : 'Practice'}
+              <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                Day {task.day}
               </span>
             </div>
             
-            <h3 className={`font-medium text-white mb-1 leading-tight ${task.completed ? 'line-through' : ''}`}>
+            <h3 className={`font-semibold text-gray-800 dark:text-white mb-2 leading-tight ${
+              task.completed ? 'line-through opacity-75' : ''
+            }`}>
               {task.title}
             </h3>
             
-            <p className="text-sm text-gray-400 leading-relaxed">
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
               {task.description}
             </p>
           </div>
@@ -66,8 +84,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onToggle, onNotesUpdate }) =>
               e.stopPropagation();
               setShowNotes(!showNotes);
             }}
-            className={`flex-shrink-0 p-1 rounded transition-colors duration-200 ${
-              task.notes ? 'text-blue-400 hover:text-blue-300' : 'text-gray-500 hover:text-gray-400'
+            className={`flex-shrink-0 p-2 rounded-lg transition-all duration-200 hover-lift ${
+              task.notes 
+                ? 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30' 
+                : 'text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
             }`}
           >
             <StickyNote className="h-4 w-4" />
@@ -77,24 +97,28 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onToggle, onNotesUpdate }) =>
 
       {/* Notes Section */}
       {showNotes && (
-        <div className="border-t border-gray-700 p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <StickyNote className="h-4 w-4 text-blue-400" />
-            <span className="text-sm font-medium text-blue-400">Notes</span>
+        <div className="border-t border-gray-100 dark:border-gray-700 p-6 bg-gray-50 dark:bg-gray-800/30">
+          <div className="flex items-center gap-2 mb-3">
+            <StickyNote className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">Personal Notes</span>
           </div>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Add your notes for this task..."
-            className="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className={`w-full p-3 rounded-lg text-sm resize-none transition-all duration-200 focus-ring ${
+              settings.theme === 'dark'
+                ? 'bg-gray-700 border border-gray-600 text-white placeholder-gray-400'
+                : 'bg-white border border-gray-200 text-gray-800 placeholder-gray-500'
+            }`}
             rows={3}
             onClick={(e) => e.stopPropagation()}
           />
-          <div className="flex justify-end mt-2">
+          <div className="flex justify-end mt-3">
             <button
               onClick={handleSaveNotes}
               disabled={isSaving}
-              className="flex items-center gap-1 px-3 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white text-sm rounded transition-colors duration-200"
+              className="btn-primary text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Save className="h-3 w-3" />
               {isSaving ? 'Saving...' : 'Save'}
@@ -105,12 +129,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onToggle, onNotesUpdate }) =>
 
       {/* Completion indicator */}
       {task.completed && (
-        <div className="absolute top-2 right-2">
-          <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+        <div className="absolute top-4 right-4">
+          <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
         </div>
       )}
     </div>
   );
 };
 
-export default TaskCard
+export default TaskCard;

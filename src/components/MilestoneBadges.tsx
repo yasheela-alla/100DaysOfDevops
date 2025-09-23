@@ -17,47 +17,60 @@ const MilestoneBadges: React.FC<MilestoneBadgesProps> = ({ milestones }) => {
   }
 
   return (
-    <div className="bg-gray-800 rounded-xl p-6 border border-gray-700 mb-6">
-      <div className="flex items-center gap-3 mb-4">
-        <Trophy className="h-6 w-6 text-yellow-500" />
-        <h2 className="text-xl font-semibold text-white">Achievements</h2>
-        <div className="flex items-center gap-1 px-2 py-1 bg-yellow-500/20 rounded-full">
-          <Sparkles className="h-3 w-3 text-yellow-400" />
-          <span className="text-xs font-medium text-yellow-400">
+    <div className="card p-8">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="p-3 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl">
+          <Trophy className="h-6 w-6 text-white" />
+        </div>
+        <div className="flex-1">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Achievements</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Celebrate your learning milestones</p>
+        </div>
+        <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-full border border-yellow-200 dark:border-yellow-800/30">
+          <Sparkles className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
+          <span className="text-sm font-semibold text-yellow-700 dark:text-yellow-400">
             {unlockedMilestones.length} unlocked
           </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {displayMilestones.map(milestone => (
           <div
             key={milestone.id}
-            className={`relative p-3 rounded-lg border transition-all duration-200 ${
+            className={`relative p-6 rounded-xl border-2 transition-all duration-300 hover-lift ${
               milestone.unlocked
-                ? 'bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-yellow-500/30 hover:border-yellow-500/50'
-                : 'bg-gray-900 border-gray-600 opacity-50'
+                ? 'bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-yellow-200 dark:border-yellow-800/30 hover:border-yellow-300 dark:hover:border-yellow-700/50 shadow-lg'
+                : 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 opacity-60'
             }`}
           >
             <div className="text-center">
-              <div className="text-2xl mb-2">
-                {milestone.unlocked ? milestone.icon : <Lock className="h-6 w-6 mx-auto text-gray-500" />}
+              <div className="text-3xl mb-3">
+                {milestone.unlocked ? (
+                  <span className="animate-pulse-glow">{milestone.icon}</span>
+                ) : (
+                  <Lock className="h-8 w-8 mx-auto text-gray-400 dark:text-gray-500" />
+                )}
               </div>
-              <h3 className={`text-sm font-medium mb-1 ${
-                milestone.unlocked ? 'text-white' : 'text-gray-400'
+              <h3 className={`text-sm font-bold mb-2 ${
+                milestone.unlocked 
+                  ? 'text-gray-800 dark:text-white' 
+                  : 'text-gray-500 dark:text-gray-400'
               }`}>
                 {milestone.title}
               </h3>
-              <p className={`text-xs ${
-                milestone.unlocked ? 'text-gray-300' : 'text-gray-500'
+              <p className={`text-xs leading-relaxed ${
+                milestone.unlocked 
+                  ? 'text-gray-600 dark:text-gray-300' 
+                  : 'text-gray-400 dark:text-gray-500'
               }`}>
                 {milestone.description}
               </p>
             </div>
             
             {milestone.unlocked && (
-              <div className="absolute -top-1 -right-1">
-                <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+              <div className="absolute -top-2 -right-2">
+                <div className="w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse shadow-lg"></div>
               </div>
             )}
           </div>
@@ -68,7 +81,7 @@ const MilestoneBadges: React.FC<MilestoneBadgesProps> = ({ milestones }) => {
         <div className="mt-4 text-center">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200"
+            className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-200"
           >
             {showAll ? 'Show less' : `Show all ${milestones.length} achievements`}
           </button>
