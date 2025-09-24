@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Task } from '../types/types';
+import { Task, AppSettings } from '../types/types';
 import { Video, Code, CheckCircle2, StickyNote, Save } from 'lucide-react';
 
 interface TaskCardProps {
   task: Task;
   onToggle: (taskId: string) => void;
   onNotesUpdate: (taskId: string, notes: string) => void;
+  settings: AppSettings;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, onToggle, onNotesUpdate }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, onToggle, onNotesUpdate, settings }) => {
   const isVideo = task.type === 'video';
   const [showNotes, setShowNotes] = useState(false);
   const [notes, setNotes] = useState(task.notes || '');

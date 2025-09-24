@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Filter, X, Video, Code } from 'lucide-react';
+import { AppSettings } from '../types/types';
 
 interface SearchAndFilterProps {
   searchTerm: string;
@@ -8,6 +9,7 @@ interface SearchAndFilterProps {
   onFilterChange: (type: 'all' | 'video' | 'practice') => void;
   showCompleted: boolean;
   onShowCompletedChange: (show: boolean) => void;
+  settings: AppSettings;
 }
 
 const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
@@ -16,7 +18,8 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   filterType,
   onFilterChange,
   showCompleted,
-  onShowCompletedChange
+  onShowCompletedChange,
+  settings
 }) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 

@@ -84,6 +84,7 @@ function App() {
             onFilterChange={setFilterType}
             showCompleted={showCompleted}
             onShowCompletedChange={setShowCompleted}
+            settings={settings}
           />
         </div>
 
@@ -128,6 +129,7 @@ function App() {
                   tasks={phaseTasks}
                   onToggleTask={toggleTask}
                   onNotesUpdate={updateTaskNotes}
+                  settings={settings}
                 />
               </div>
             );

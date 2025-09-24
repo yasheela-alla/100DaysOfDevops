@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phase, Task } from '../types/types';
+import { Phase, Task, AppSettings } from '../types/types';
 import { ChevronDown, ChevronUp, Calendar, Target } from 'lucide-react';
 import TaskCard from './TaskCard';
 
@@ -8,9 +8,10 @@ interface PhaseSectionProps {
   tasks: Task[];
   onToggleTask: (taskId: string) => void;
   onNotesUpdate: (taskId: string, notes: string) => void;
+  settings: AppSettings;
 }
 
-const PhaseSection: React.FC<PhaseSectionProps> = ({ phase, tasks, onToggleTask, onNotesUpdate }) => {
+const PhaseSection: React.FC<PhaseSectionProps> = ({ phase, tasks, onToggleTask, onNotesUpdate, settings }) => {
   const [isExpanded, setIsExpanded] = useState(phase.id === 1); // First phase expanded by default
   
   const phaseTasks = tasks.filter(task => {
@@ -132,6 +133,7 @@ const PhaseSection: React.FC<PhaseSectionProps> = ({ phase, tasks, onToggleTask,
                       task={task}
                       onToggle={onToggleTask}
                       onNotesUpdate={onNotesUpdate}
+                      settings={settings}
                     />
                   ))}
                 </div>
