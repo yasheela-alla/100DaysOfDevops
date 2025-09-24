@@ -48,15 +48,13 @@ function App() {
   }, [tasks]);
 
   const handleReset = () => {
-    if (window.confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+    if (window.confirm('Reset all progress? This cannot be undone.')) {
       resetProgress();
     }
   };
 
   return (
-    <div className={`min-h-screen transition-all duration-300 ${
-      settings.theme === 'dark' ? 'dark bg-gray-950' : 'light bg-gray-50'
-    }`}>
+    <div className="min-h-screen bg-black text-white">
       <Header 
         settings={settings}
         onSettingsUpdate={updateSettings}
@@ -64,19 +62,19 @@ function App() {
         onExport={() => setShowExportModal(true)}
       />
       
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+      <main className="max-w-4xl mx-auto px-6 py-8 space-y-6">
         {/* Progress Stats */}
         <div className="animate-fade-in">
           <ProgressStats progress={progress} />
         </div>
 
         {/* Milestone Badges */}
-        <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
+        <div className="animate-fade-in">
           <MilestoneBadges milestones={milestones} />
         </div>
 
         {/* Search and Filter */}
-        <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <div className="animate-fade-in">
           <SearchAndFilter
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -89,21 +87,7 @@ function App() {
         </div>
 
         {/* Learning Plan */}
-        <div className="space-y-8">
-          <div className="text-center mb-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <h2 className={`text-3xl font-bold mb-2 ${
-              settings.theme === 'dark' ? 'text-white' : 'text-gray-800'
-            }`}>
-              90-Day DevOps Mastery Journey
-            </h2>
-            <p className={`text-lg max-w-3xl mx-auto leading-relaxed text-balance ${
-              settings.theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              A comprehensive learning journey covering DevOps fundamentals, AWS cloud services, 
-              and advanced automation tools. Master each skill through structured video content and hands-on practice.
-            </p>
-          </div>
-
+        <div className="space-y-6">
           {phases.map(phase => {
             const phaseTasks = filteredTasks.filter(task => {
               const phaseRanges = {
@@ -115,15 +99,10 @@ function App() {
               return task.day >= start && task.day <= end;
             });
 
-            // Only show phase if it has matching tasks
             if (phaseTasks.length === 0) return null;
 
             return (
-              <div 
-                key={phase.id}
-                className="animate-fade-in" 
-                style={{ animationDelay: `${0.4 + phase.id * 0.1}s` }}
-              >
+              <div key={phase.id} className="animate-fade-in">
                 <PhaseSection
                   phase={phase}
                   tasks={phaseTasks}
@@ -137,30 +116,10 @@ function App() {
         </div>
 
         {/* Footer */}
-        <footer className={`mt-20 text-center py-12 border-t ${
-          settings.theme === 'dark' ? 'border-gray-800' : 'border-gray-100'
-        }`}>
-          <div className={`space-y-4 ${
-            settings.theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-          }`}>
-            <p className="text-lg font-medium">💪 Stay consistent • 🚀 Build projects • 🎯 Land your DevOps role</p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span>Daily commitment: <span className={`font-semibold ${
-                  settings.theme === 'dark' ? 'text-white' : 'text-gray-800'
-                }`}>2.5 hours</span></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                <span>Morning videos: <span className="font-semibold text-red-500">1 hour</span></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-teal-500 rounded-full"></span>
-                <span>Evening practice: <span className="font-semibold text-teal-500">1.5 hours</span></span>
-              </div>
-            </div>
-          </div>
+        <footer className="text-center py-8 border-t border-white/10 mt-12">
+          <p className="text-secondary text-sm">
+            90-day DevOps mastery journey • Stay consistent, build projects, land your role
+          </p>
         </footer>
       </main>
 

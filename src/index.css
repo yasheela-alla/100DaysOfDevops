@@ -8,52 +8,28 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+/* Minimal animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
-  }
-}
-
-.animate-slide-up {
-  animation: slide-up 0.3s ease-out;
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.5s ease-out;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 2s infinite;
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - minimal */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -61,109 +37,105 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.3);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.5);
-}
-
-/* Light theme scrollbar */
-.light ::-webkit-scrollbar-thumb {
-  background: rgba(107, 114, 128, 0.2);
-}
-
-.light ::-webkit-scrollbar-thumb:hover {
-  background: rgba(107, 114, 128, 0.4);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Smooth transitions */
 * {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.15s ease;
 }
 
-/* Glass effect */
-.glass-effect {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* Notion-style shadows */
-.notion-shadow {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-}
-
-.notion-shadow-lg {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.light .notion-shadow {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-.light .notion-shadow-lg {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-}
-
-/* Hover effects */
-.hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-1px);
-}
-
-/* Focus styles */
-.focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
-}
-
-.light .focus-ring {
-  @apply focus:ring-offset-white;
+/* Focus styles - minimal */
+.focus-minimal {
+  @apply focus:outline-none focus:ring-1 focus:ring-white/20;
 }
 
 /* Button styles */
-.btn-primary {
-  @apply px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus-ring;
+.btn-minimal {
+  @apply px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-150 focus-minimal;
 }
 
-.btn-secondary {
-  @apply px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors duration-200 focus-ring;
+.btn-primary-minimal {
+  @apply btn-minimal bg-white text-black hover:bg-gray-100;
 }
 
-.light .btn-secondary {
-  @apply bg-gray-50 hover:bg-gray-100 text-gray-600;
+.btn-secondary-minimal {
+  @apply btn-minimal bg-white/10 text-white hover:bg-white/20;
 }
 
-/* Card styles */
-.card {
-  @apply bg-white rounded-xl border border-gray-200 notion-shadow;
+.btn-ghost-minimal {
+  @apply btn-minimal text-gray-400 hover:text-white hover:bg-white/5;
 }
 
-.light .card {
-  @apply bg-white border-gray-100;
+/* Card styles - minimal */
+.card-minimal {
+  @apply bg-black/40 border border-white/10 rounded-lg backdrop-blur-sm;
 }
 
-.dark .card {
-  @apply bg-gray-800 border-gray-700;
+.card-hover-minimal {
+  @apply hover:bg-black/60 hover:border-white/20;
 }
 
-/* Typography improvements */
-.text-balance {
-  text-wrap: balance;
+/* Input styles */
+.input-minimal {
+  @apply bg-black/40 border border-white/10 rounded-md px-3 py-2 text-white placeholder-gray-500 focus-minimal focus:border-white/30;
 }
 
-/* Loading states */
-.skeleton {
-  @apply animate-pulse bg-gray-200 rounded;
+/* Progress bar */
+.progress-minimal {
+  @apply bg-white/10 rounded-full overflow-hidden;
 }
 
-.light .skeleton {
-  @apply bg-gray-100;
+.progress-fill-minimal {
+  @apply bg-white rounded-full transition-all duration-500 ease-out;
 }
 
-.dark .skeleton {
-  @apply bg-gray-700;
+/* Typography */
+.text-primary {
+  @apply text-white;
+}
+
+.text-secondary {
+  @apply text-gray-400;
+}
+
+.text-muted {
+  @apply text-gray-500;
+}
+
+/* Hover effects */
+.hover-minimal {
+  @apply hover:bg-white/5 transition-colors duration-150;
+}
+
+/* Badge styles */
+.badge-minimal {
+  @apply px-2 py-0.5 text-xs font-medium rounded-md;
+}
+
+.badge-video {
+  @apply badge-minimal bg-red-500/20 text-red-300 border border-red-500/30;
+}
+
+.badge-practice {
+  @apply badge-minimal bg-blue-500/20 text-blue-300 border border-blue-500/30;
+}
+
+.badge-day {
+  @apply badge-minimal bg-white/10 text-gray-300 border border-white/20;
+}
+
+/* Checkbox styles */
+.checkbox-minimal {
+  @apply w-4 h-4 rounded border border-white/30 bg-transparent text-white focus:ring-1 focus:ring-white/20 focus:ring-offset-0;
+}
+
+/* Divider */
+.divider-minimal {
+  @apply border-white/10;
 }
