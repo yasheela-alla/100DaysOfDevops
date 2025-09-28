@@ -1,5 +1,5 @@
 import React from 'react';
-import { RotateCcw, Download, Sun, Moon } from 'lucide-react';
+import { RotateCcw, Download, Sun, Moon, StickyNote } from 'lucide-react';
 import { AppSettings } from '../types/types';
 
 interface HeaderProps {
@@ -7,9 +7,10 @@ interface HeaderProps {
   onSettingsUpdate: (settings: Partial<AppSettings>) => void;
   onReset: () => void;
   onExport: () => void;
+  onNotesOpen: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ settings, onSettingsUpdate, onReset, onExport }) => {
+const Header: React.FC<HeaderProps> = ({ settings, onSettingsUpdate, onReset, onExport, onNotesOpen }) => {
   const toggleTheme = () => {
     onSettingsUpdate({ theme: settings.theme === 'dark' ? 'light' : 'dark' });
   };
@@ -28,6 +29,14 @@ const Header: React.FC<HeaderProps> = ({ settings, onSettingsUpdate, onReset, on
           </div>
           
           <div className="flex items-center gap-2">
+            <button
+              onClick={onNotesOpen}
+              className="btn-ghost-minimal"
+              title="View all notes"
+            >
+              <StickyNote className="h-4 w-4" />
+            </button>
+            
             <button
               onClick={onExport}
               className="btn-ghost-minimal"

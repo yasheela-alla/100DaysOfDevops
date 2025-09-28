@@ -8,6 +8,7 @@ import SearchAndFilter from './components/SearchAndFilter';
 import MilestoneBadges from './components/MilestoneBadges';
 import ExportModal from './components/ExportModal';
 import DailyReminder from './components/DailyReminder';
+import GlobalNotesModal from './components/GlobalNotesModal';
 
 function App() {
   const { 
@@ -25,6 +26,7 @@ function App() {
   const [filterType, setFilterType] = useState<'all' | 'video' | 'practice'>('all');
   const [showCompleted, setShowCompleted] = useState(true);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showNotesModal, setShowNotesModal] = useState(false);
 
   // Filter tasks based on search and filters
   const filteredTasks = useMemo(() => {
@@ -60,6 +62,7 @@ function App() {
         onSettingsUpdate={updateSettings}
         onReset={handleReset}
         onExport={() => setShowExportModal(true)}
+        onNotesOpen={() => setShowNotesModal(true)}
       />
       
       <main className="max-w-4xl mx-auto px-6 py-8 space-y-6">
@@ -128,6 +131,14 @@ function App() {
         isOpen={showExportModal}
         onClose={() => setShowExportModal(false)}
         tasks={tasks}
+      />
+
+      {/* Global Notes Modal */}
+      <GlobalNotesModal
+        isOpen={showNotesModal}
+        onClose={() => setShowNotesModal(false)}
+        tasks={tasks}
+        onTaskNotesUpdate={updateTaskNotes}
       />
 
       {/* Daily Reminder */}
